@@ -87,11 +87,11 @@ Self-Attention机制，结合mask机制和算法优化，使得 一篇文章、�
 
 GPT模型依托于**Transformer解除了顺序关联和依赖性的前提**，提出一个建设性的主张。
 
-先通过**大量**的**无监督预训练(Unsupervised pre-training)**，
+先通过**大量**无监督预训练(Unsupervised pre-training)，
 
 注：**无监督**是指不需要人介入，不需要标注数据集（**不需要教材和老师**）的预训练。
 
-再通过**少量有监督微调（Supervised fine-tunning)**，来修正其理解能力。
+再通过少量有监督微调（Supervised fine-tunning)，来修正其理解能力。
 
 打个比方，就好像我们培养一个小孩，分了两个阶段：
 
@@ -105,13 +105,13 @@ GPT模型依托于**Transformer解除了顺序关联和依赖性的前提**，�
 
 GPT(Generative Pre-Training)顾名思义，采用了生成式模型。
 
-简单来说，生成式模型相比判别式模型更适合**大数据**学习 ，后者更适合精确样本(人工标注的有效数据集）。要更好实现**预训练(Pre-Training)**，生成式模式会更合适。
+简单来说，生成式模型相比判别式模型更适合**大数据**学习 ，后者更适合精确样本(人工标注的有效数据集）。要更好实现预训练(Pre-Training)，生成式模式会更合适。
 
 生成式模式： https://en.wikipedia.org/wiki/Generative_model 
 
 ## 4.3、GPT vs Transfomer的模型改进
 
-**GPT**训练了一个12层仅decoder的解码器**（decoder-only,没有encoder)，从而使得模型**更为简单**。
+**GPT**训练了一个12层仅decoder的解码器（decoder-only,没有encoder)，从而使得模型更为简单。
 
 # 5、GPT-2（2019年2月）
 
@@ -125,11 +125,11 @@ GPT(Generative Pre-Training)顾名思义，采用了生成式模型。
 
 GPT-2的时候，OpenAI将**有监督**fine-tuning微调阶段给直接去掉了，将其变成了一个**无监督的模型（不要人工、不要老师）**。
 
-同时，增加了一个关键字**多任务(multitask)**。
+同时，增加了一个关键字多任务(multitask)。
 
 ## 5.2、为什么这么调整？试图解决zero-shot问题
 
-GPT-2为什么这么调整？从论文描述来看，是为了尝试解决**zero-shot(零次学习问题)**。
+GPT-2为什么这么调整？从论文描述来看，是为了尝试解决zero-shot(零次学习问题)。
 
 **zero-shot(零次学习)** 是一个什么问题呢？简单可理解为推理能力。就是指面对未知事物时，**AI**也能自动认识它，即具备推理能力。
 
@@ -185,7 +185,7 @@ Instruction GPT是基于GPT-3的一轮增强优化，所以也被称为GPT-3.5�
 
 OpenAI给出新的答案：强化学习--在GPT-3的基础上，基于人工反馈(RHLF）训练一个reward model(奖励模型),再用reward model(奖励模型，RM)去训练学习模型。
 
-简单来说就是**用机器(**AI)来训练机器(AI)
+简单来说就是用机器(AI)来训练机器(AI)
 
 ## **7.2、Insctruction** **GPT**的核心训练步骤
 
@@ -197,7 +197,7 @@ reinforcement learning from human feedback（RLHF）利用人类反馈的强化�
 
 采用监督学习的方法fintune GPT-3模型
 
-- 第二步：**奖励模型-**reward model (RM) training 
+- 第二步：**奖励模型**-reward model (RM) training 
 
 训练数据集：人工对模型生成的多种回复进行排序（打分）。
 
@@ -227,7 +227,6 @@ ChatGPT和InstructionGPT本质上是同一代际的，仅仅是在InstructionGPT
 
 # 参考资料与拓展阅读：
 
-ai.googleblog.com/2017/08/transformer-novel-neural-network.html
 
 https://arxiv.org/abs/1706.03762
 
