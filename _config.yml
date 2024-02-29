@@ -29,12 +29,12 @@ keyword: "zhutianying"
 # SNS settings
 # 一些社交平台地址，支持以下几种：
 
-# weibo_username:     
-# zhihu_username:     
+weibo_username:     
+zhihu_username:     
 github_username:    zhutianying
-# twitter_username:   
-# facebook_username:  
-# linkedin_username:  
+twitter_username:   
+facebook_username:  
+linkedin_username:  
 
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
