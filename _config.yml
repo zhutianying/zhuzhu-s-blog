@@ -24,17 +24,17 @@ permalink_defaults:
 SEOTitle: zhuzhu's blog
 email: 17638756580@163.com
 description: "zhuzhu's blog"
-keyword: "hexo,聂小涛,聂小涛的博客,全栈开发,Aircloud"
+keyword: "zhutianying"
 
 # SNS settings
 # 一些社交平台地址，支持以下几种：
 
-# weibo_username:     3286578617
-# zhihu_username:     ai-er-lan-xue-da
-# github_username:    AirCloud
-# twitter_username:   iconie_alloy
-# facebook_username:  xiaotao.nie.5
-# linkedin_username:  小涛-聂-80964aba
+# weibo_username:     
+# zhihu_username:     
+github_username:    zhutianying
+# twitter_username:   
+# facebook_username:  
+# linkedin_username:  
 
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
@@ -49,7 +49,7 @@ friends: [
         href: "https://godkai.cn"
     },{
         title: "拾梦人",
-        href: "https://lixianhao.com/"
+        href: "https://lixianhao.com"
     },{
         title: "京ICP备2023003608号-1",
         href: "https://beian.miit.gov.cn/"
@@ -85,9 +85,9 @@ comment:
   #  type: disqus
   #  script: 'https://airclouds-blog.disqus.com/embed.js'
 
-# donate:
-#   img: img/donate.jpg
-#   content: 感谢鼓励
+donate:
+  img: img/donate.jpg
+  content: 感谢鼓励
 
 # The following content is not recommended to modify
 # 搜索数据文件路径设置，不建议改动：
