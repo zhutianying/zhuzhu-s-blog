@@ -23,18 +23,15 @@ GPT的全称，是Generative Pre-Trained Transformer（生成式预训练。模�
 4. 2020年5月，OpenAI 发布论文《Language Models are Few-Shot Learners》(语言模型应该是一个少量样本(few-shot)学习者，提出GPT-3模型。论文地址：https://paperswithcode.com/method/gpt-3
 5. 2022年2月底，OpenAI 发布论文《Training language models to follow instructions with human feedback》（使用人类反馈指令流来训练语言模型），公布 Instruction GPT模型。论文地址：https://arxiv.org/abs/2203.02155
 
-
-OpenAI的技术路线演进
-
 # 3.GPT之T-Transformer（2017）
 
-## **3.1、上一代****RNN****模型的重大缺陷**
+## **3.1、上一代RNN模型的重大缺陷**
 
 在Transformer模型出来前，RNN模型(循环神经网络)是典型的NLP模型架构。
 
-**RNN****的基本原理**是，从左到右浏览每个单词向量(比如说this is a dog)，保留每个单词的数据，后面的每个单词，都依赖于前面的单词。
+**RNN**的基本原理是，从左到右浏览每个单词向量(比如说this is a dog)，保留每个单词的数据，后面的每个单词，都依赖于前面的单词。
 
-**RNN****的关键问题**：前后需要顺序、依次计算。**可以想象一下，一本书、一篇文章，里面是有大量单词的**，而又因为顺序依赖性，不能并行，所以**效率很低**。
+**RNN**的关键问题**：前后需要顺序、依次计算。**可以想象一下，一本书、一篇文章，里面是有大量单词的**，而又因为顺序依赖性，不能并行，所以**效率很低。
 
 ## **3.2、Transformer之All in Attention**
 
@@ -70,11 +67,11 @@ Transformer从根本上解决了**两个关键障碍**，其推出是**变革性
 
 打个比方，就是机器学习需要大量教材，大量输入、输出的样本，让机器去学习、训练。这个教材需要量身制定，而且需求数量极大。好比 以前要10000、10万名老师编写教材，现在只需要10人，降低成千上万倍。
 
-那么这块是怎么解决的呢？简单描述一下，就是通过**Mask机制**，遮挡已有文章中的句段，**让****AI****去填空**。
+那么这块是怎么解决的呢？简单描述一下，就是通过**Mask机制**，遮挡已有文章中的句段，**让**AI去填空。
 
 好比是一篇已有的文章、诗句，挡住其中一句，**让机器根据学习到的模型，依据上一句，去填补下一句**。
 
-这样，**很多现成的文章、****wiki****、论文等，就是天然的标注数据集了**。
+这样，**很多现成的文章、**wiki、论文等，就是天然的标注数据集了。
 
 ### 3.4.2、化顺序计算为并行计算，巨幅降低训练时间
 
@@ -83,10 +80,6 @@ Transformer从根本上解决了**两个关键障碍**，其推出是**变革性
 Self-Attention机制，结合mask机制和算法优化，使得 一篇文章、一句话、一段话 能够并行计算。
 
 （注意力向量）
-
-
-
-人工智能发展史
 
 # 4、GPT(Generative Pre-Training)（2018年6月）
 
@@ -112,13 +105,13 @@ GPT模型依托于**Transformer解除了顺序关联和依赖性的前提**，�
 
 GPT(Generative Pre-Training)顾名思义，采用了生成式模型。
 
-简单来说，生成式模型相比判别式模型更适合**大数据****学习** ，后者更适合精确样本(人工标注的有效数据集）。要更好实现**预训练(Pre-Training)**，生成式模式会更合适。
+简单来说，生成式模型相比判别式模型更适合**大数据**学习 ，后者更适合精确样本(人工标注的有效数据集）。要更好实现**预训练(Pre-Training)**，生成式模式会更合适。
 
 生成式模式： https://en.wikipedia.org/wiki/Generative_model 
 
 ## 4.3、GPT vs Transfomer的模型改进
 
-**GPT****训练了一个12层仅decoder的解码器**（decoder-only,没有encoder)，从而使得模型**更为简单**。
+**GPT**训练了一个12层仅decoder的解码器**（decoder-only,没有encoder)，从而使得模型**更为简单**。
 
 # 5、GPT-2（2019年2月）
 
@@ -138,7 +131,7 @@ GPT-2的时候，OpenAI将**有监督**fine-tuning微调阶段给直接去掉了
 
 GPT-2为什么这么调整？从论文描述来看，是为了尝试解决**zero-shot(零次学习问题)**。
 
-**zero-shot(零次学习)** 是一个什么问题呢？简单可理解为推理能力。就是指面对未知事物时，**AI****也能自动认识它，即具备推理能力**。
+**zero-shot(零次学习)** 是一个什么问题呢？简单可理解为推理能力。就是指面对未知事物时，**AI**也能自动认识它，即具备推理能力。
 
 比如说，在去动物园前，我们告诉小朋友，**像熊猫一样，是黑白色，并且呈黑白条纹的类马动物就是斑马**，小朋友根据这个提示，**能够正确找到斑马**。小朋友没有见过斑马，但是却能一眼认出斑马（推理）。
 
@@ -178,7 +171,7 @@ GPT-3采用了过滤前45TB的压缩文本，并且在**过滤后(after filterin
 
 在模型参数上，**从GPT-2的15亿，提升到1750亿，翻了110多倍。**
 
-# **7、****Instruction** **GPT****（2022年2月）**
+# **7、**Instruction **GPT**（2022年2月）
 
 ## 7.1、Instruction GPT相比GPT-3的核心变化
 
@@ -192,9 +185,9 @@ Instruction GPT是基于GPT-3的一轮增强优化，所以也被称为GPT-3.5�
 
 OpenAI给出新的答案：强化学习--在GPT-3的基础上，基于人工反馈(RHLF）训练一个reward model(奖励模型),再用reward model(奖励模型，RM)去训练学习模型。
 
-简单来说就是**用机器(****AI****)来训练机器(AI)**
+简单来说就是**用机器(**AI)来训练机器(AI)
 
-## **7.2、Insctruction** **GPT****的核心训练步骤**
+## **7.2、Insctruction** **GPT**的核心训练步骤
 
 reinforcement learning from human feedback（RLHF）利用人类反馈的强化学习
 
@@ -216,21 +209,21 @@ reinforcement learning from human feedback（RLHF）利用人类反馈的强化�
 
 **第2步、第3步是完全可以迭代、循环多次进行的**。
 
-## **7.3、****Instruction** **GPT****的训练规模**
+## **7.3、**Instruction **GPT**的训练规模
 
 **基础数据规模同GPT-3**，只是在其基础上增加了3个步骤（监督微调SFT、奖励模型训练Reward Model，增强学习优化PPO)。
 
 多了OpenAI雇佣或有相关关系的标注人员(labler)和GPT-3 API的调用用户（customer）
 
-# **8、****ChatGPT****（2022年11月）**
+# **8、**ChatGPT（2022年11月）
 
-## **8.1、****ChatGPT****和****Instruction** **GPT**
+## **8.1、**ChatGPT和Instruction **GPT**
 
 ChatGPT和InstructionGPT本质上是同一代际的，仅仅是在InstructionGPT的基础上，**增加了Chat功能（强大的上下文学习能力），以及将InstructionGPT发布后上述训练步骤的第二步、第三步循环迭代了多轮，同时开放到公众测试训练，以便产生更多有效标注数据。**
 
 ## 8.2、ChatGPT可以用来做什么
 
-[ChatGPT强大的功能及落地](https://xiaomi.f.mioffice.cn/docx/doxk4w9D78X97vsqLBMVWzsA8Nh) 
+
 
 # 参考资料与拓展阅读：
 
