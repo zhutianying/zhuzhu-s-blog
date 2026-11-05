@@ -30,8 +30,6 @@
 
 <%- partial('_partial/footer', null, {cache: false}) %>
 
-</body>
-
 <script>
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "<%- config.search ? config.search.path : ""%>"
@@ -39,5 +37,6 @@
     window.isPost = <%- is_post() %>
 </script>
 <%- js('js/index.js') %>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
 </html>

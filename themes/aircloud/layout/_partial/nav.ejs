@@ -2,7 +2,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar <% if(config.avatar_style && config.avatar_style.radius) {%>radius<% } %>">
-            <img src="<%= config['root'] %><%= config['sidebar-avatar'] %>" />
+            <img src="<%= config['root'] %><%= config['sidebar-avatar'] %>" alt="<%= config.author %> 的头像" />
         </div>
         <div class="name">
             <i><%= config.author %></i>
@@ -42,7 +42,7 @@
             </li>
             <%if(config.search && config.search.path){%>
             <li>
-                <a id="search" href="#search" aria-label="搜索文章">
+                <a id="search" href="#search" aria-label="搜索文章" role="button">
                     <i class="iconfont icon-sousuo1"></i>
                     <span><%= __('nav.search') %></span>
                 </a>
@@ -64,10 +64,10 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input"/>
+            <input id="search-input" type="search" aria-label="搜索关键词" autocomplete="off" />
             <span id="begin-search"><%= __('search.search') %></span>
         </div>
-        <div class="search-result-container" id="search-result-container">
+        <div class="search-result-container" id="search-result-container" role="status" aria-live="polite">
 
         </div>
     </div>

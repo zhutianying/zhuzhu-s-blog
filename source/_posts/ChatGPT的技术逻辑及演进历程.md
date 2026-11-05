@@ -1,8 +1,11 @@
 ---
 title: ChatGPT的技术逻辑及演进历程
 date: 2024-02-29 21:16:00
+categories:
+  - AI 与开发
 tags:
     - AI
+description: 从 Transformer、自回归语言模型到 ChatGPT，梳理大语言模型的核心技术逻辑与发展脉络。
 ---
 
 # 1.什么是**GPT**

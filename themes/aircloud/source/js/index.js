@@ -64,8 +64,15 @@ const caseSensitive = false;
 const searchWindowSize = 100;
 const maximumSnippetsPerResult = 3;
 
-searchButton.addEventListener('click', () => {
+searchButton.addEventListener('click', (event) => {
+    event.preventDefault();
     search()
+});
+
+searchButton.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    search();
 });
 
 escSearch.addEventListener('click',() => {

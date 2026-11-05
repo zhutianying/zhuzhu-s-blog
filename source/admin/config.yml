@@ -30,7 +30,7 @@ collections:
         format: YYYY-MM-DD HH:mm:ss
         date_format: YYYY-MM-DD
         time_format: HH:mm:ss
-      - { label: 分类, name: categories, widget: list, required: false }
+      - { label: 分类, name: categories, widget: list }
       - { label: 标签, name: tags, widget: list, required: false }
-      - { label: 摘要, name: description, widget: string, required: false }
+      - { label: 摘要, name: description, widget: string }
       - { label: 正文, name: body, widget: markdown }
