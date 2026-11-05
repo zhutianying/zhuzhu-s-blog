@@ -17,7 +17,7 @@
     "version": "5.4.2"
   },
   "dependencies": {
-    "decap-cms": "^3.8.1",
+    "decap-cms": "^3.10.1",
     "ejs": "^2.5.5",
     "hexo": "^5.4.2",
     "hexo-generator-archive": "^1.0.0",
