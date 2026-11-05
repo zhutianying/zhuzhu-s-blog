@@ -49,17 +49,17 @@
         <% } %>
 
     </ul>
-    <% if(config.friends) { %>
-    <p>
-        <span>/</span>
+    <% if(config.friends && config.friends.length) { %>
+    <p class="footer-friends">
+        <span>友链：</span>
         <% config.friends.forEach(function(friend){ %>
-        <span><a href="<%= friend.href %>"><%= friend.title %></a></span>
-        <span>/</span>
+        <span><a target="_blank" rel="noopener noreferrer" href="<%= friend.href %>"><%= friend.title %></a></span><% if (friend !== config.friends[config.friends.length - 1]) { %><span> · </span><% } %>
         <% }); %>
     </p>
     <% }%>
-    <p>
-        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+    <% if(config.icp && config.icp.title && config.icp.href) { %>
+    <p class="footer-icp"><a target="_blank" rel="noopener noreferrer" href="<%= config.icp.href %>"><%= config.icp.title %></a></p>
+    <% } %>
 </footer>
 
 

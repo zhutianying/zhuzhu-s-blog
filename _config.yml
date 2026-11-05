@@ -50,11 +50,12 @@ friends: [
     },{
         title: "拾梦人",
         href: "https://lixianhao.com"
-    },{
-        title: "京ICP备2023003608号-1",
-        href: "https://beian.miit.gov.cn/"
     }
 ]
+
+icp:
+  title: "京ICP备2023003608号-1"
+  href: "https://beian.miit.gov.cn/"
 
 donate:
   img: img/donate.jpg

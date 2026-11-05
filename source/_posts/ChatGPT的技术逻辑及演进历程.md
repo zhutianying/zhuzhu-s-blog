@@ -3,8 +3,7 @@ title: ChatGPT的技术逻辑及演进历程
 date: 2024-02-29 21:16:00
 categories:
   - AI 与开发
-tags:
-    - AI
+tags: AI
 description: 从 Transformer、自回归语言模型到 ChatGPT，梳理大语言模型的核心技术逻辑与发展脉络。
 ---
 
@@ -34,7 +33,7 @@ GPT的全称，是Generative Pre-Trained Transformer（生成式预训练。模�
 
 **RNN**的基本原理是，从左到右浏览每个单词向量(比如说this is a dog)，保留每个单词的数据，后面的每个单词，都依赖于前面的单词。
 
-**RNN**的关键问题**：前后需要顺序、依次计算。**可以想象一下，一本书、一篇文章，里面是有大量单词的**，而又因为顺序依赖性，不能并行，所以**效率很低。
+**RNN 的关键问题：** 前后需要顺序、依次计算。可以想象一下，一本书、一篇文章里面有大量单词，而又因为顺序依赖性，不能并行，所以**效率很低。**
 
 ## **3.2、Transformer之All in Attention**
 
@@ -74,7 +73,7 @@ Transformer从根本上解决了**两个关键障碍**，其推出是**变革性
 
 好比是一篇已有的文章、诗句，挡住其中一句，**让机器根据学习到的模型，依据上一句，去填补下一句**。
 
-这样，**很多现成的文章、**wiki、论文等，就是天然的标注数据集了。
+这样，**很多现成的文章、wiki、论文等**，就是天然的标注数据集了。
 
 ### 3.4.2、化顺序计算为并行计算，巨幅降低训练时间
 
@@ -174,7 +173,7 @@ GPT-3采用了过滤前45TB的压缩文本，并且在**过滤后(after filterin
 
 在模型参数上，**从GPT-2的15亿，提升到1750亿，翻了110多倍。**
 
-# **7、**Instruction **GPT**（2022年2月）
+# 7、Instruction GPT（2022年2月）
 
 ## 7.1、Instruction GPT相比GPT-3的核心变化
 
@@ -212,15 +211,15 @@ reinforcement learning from human feedback（RLHF）利用人类反馈的强化�
 
 **第2步、第3步是完全可以迭代、循环多次进行的**。
 
-## **7.3、**Instruction **GPT**的训练规模
+## 7.3、Instruction GPT 的训练规模
 
 **基础数据规模同GPT-3**，只是在其基础上增加了3个步骤（监督微调SFT、奖励模型训练Reward Model，增强学习优化PPO)。
 
 多了OpenAI雇佣或有相关关系的标注人员(labler)和GPT-3 API的调用用户（customer）
 
-# **8、**ChatGPT（2022年11月）
+# 8、ChatGPT（2022年11月）
 
-## **8.1、**ChatGPT和Instruction **GPT**
+## 8.1、ChatGPT 和 Instruction GPT
 
 ChatGPT和InstructionGPT本质上是同一代际的，仅仅是在InstructionGPT的基础上，**增加了Chat功能（强大的上下文学习能力），以及将InstructionGPT发布后上述训练步骤的第二步、第三步循环迭代了多轮，同时开放到公众测试训练，以便产生更多有效标注数据。**
 
