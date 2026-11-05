@@ -22,6 +22,24 @@ git push origin main
 
 Vercel 会运行 `npm run build` 并发布 `public/` 目录。`public/` 是生成物，不应手动修改或提交。
 
+## 每日早间新闻
+
+Codex 的独立定时任务会在每天北京时间 06:30 生成并发布一篇早间新闻；每次运行都会使用一个新会话。工作流由个人 Skill `$hexo-daily-news-publisher` 约束，文章会写入：
+
+```text
+source/_posts/YYYY-MM-DD-早间新闻.md
+```
+
+文章标题固定为“早间新闻-YYYY年MM月DD日”，发布时间和资讯截点均为北京时间 06:30，分类与唯一标签均为“早间新闻”。内容覆盖中国市场与宏观、国内要闻、全球市场、AI、GitHub 和国际新闻，并优先引用可核验的一手来源。
+
+需要手动发布时，在博客项目的 Codex 会话中输入：
+
+```text
+使用 $hexo-daily-news-publisher 发布今天的早间新闻
+```
+
+任务只会在工作区干净、远端可 fast-forward 同步且 `npm run build` 成功后，提交当天文章并推送 `main`。GitHub 推送成功即视为发布工作完成；Vercel 的后续构建与部署不由 Codex 检查。
+
 ## 文章格式
 
 新文章会自动使用 `scaffolds/post.md` 模板。至少填写标题、分类和标签：
@@ -48,6 +66,14 @@ source/_posts/我的文章/cover.png
 
 再用 `![封面](cover.png)` 引用。项目已开启 Hexo 的文章资源目录功能。
 
+正文使用标准 Markdown。由于当前渲染器对中文紧跟在粗体闭合标记后的写法无法正确解析，如需在粗体后继续同一行文字，必须留一个半角空格：
+
+```md
+**A股｜11月4日收盘。** 上证综指……
+```
+
+不要写成 `**A股｜11月4日收盘。**上证综指……`，否则页面会直接显示 `**`。
+
 ## 本地检查
 
 在推送前运行：
@@ -64,6 +90,6 @@ npm run check
 
 ## 关于后台写作
 
-线上后台已使用 Decap CMS 接入 GitHub OAuth，入口是 <https://zhutianying.com/admin/>。首次启用需要按 [CMS_SETUP.md](CMS_SETUP.md) 创建 GitHub OAuth App 并在 Vercel 设置三个环境变量；其中 `CMS_SITE_URL` 必须是纯站点源地址（例如 `https://zhutianying.com`），不能包含路径、查询参数或片段。凭据不存放在仓库中。
+线上后台已使用 Decap CMS 接入 GitHub OAuth，入口是 <https://zhutianying.com/admin/>。首次启用需要按 [CMS_SETUP.md](CMS_SETUP.md) 创建 GitHub OAuth App 并在 Vercel 设置三个环境变量；其中 `CMS_SITE_URL` 必须是纯站点源地址（例如 `https://zhutianying.com`），不能包含路径、查询参数或片段。CMS 的标签字段要求每篇文章只填写一个标签。凭据不存放在仓库中。
 
 `hexo-admin` 仍是一个只适合**本地**使用的 Hexo 编辑界面，不是线上后台。线上后台发布文章时会直接提交 GitHub 的 `main` 分支，并自动触发 Vercel 部署。

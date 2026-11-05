@@ -25,11 +25,11 @@ assert.match(home, /GodKai/);
 assert.match(home, /拾梦人/);
 assert.match(home, /京ICP备2023003608号-1/);
 assert.doesNotMatch(home, /Created By/);
-assert.match(home, /<strong>股市。<\/strong> 11 月 4 日/);
+assert.match(home, /<strong>A股｜11月4日收盘。<\/strong> 上证综指/);
 assert.doesNotMatch(home, /\*\*/);
 assert.match(home, /发布于：<span>2026-11-05 06:30:00<\/span>/);
-assert.match(home, /资讯截点：北京时间 11 月 5 日 06:30/);
-assert.equal(existsSync(resolve(publicDirectory, '2026/11/05/2026-11-05-早间全球资讯简报/index.html')), true, '早间新闻链接应保持稳定');
+assert.match(home, /资讯截点：北京时间 2026-11-05 06:30/);
+assert.equal(existsSync(resolve(publicDirectory, '2026/11/05/2026-11-05-早间新闻/index.html')), true, '早间新闻链接应保持稳定');
 
 const postsDirectory = resolve(__dirname, '../source/_posts');
 for (const file of readdirSync(postsDirectory).filter((name) => name.endsWith('.md'))) {
