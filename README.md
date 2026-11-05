@@ -65,6 +65,6 @@ npm run build
 
 ## 关于后台写作
 
-`hexo-admin` 是一个只适合**本地**使用的 Hexo 编辑界面，通常可在本地启动后访问 `/admin`。它不是能直接部署在 Vercel 上的安全内容后台：线上静态部署没有持久写入能力，也不应公开 GitHub 写入权限。
+线上后台已使用 Decap CMS 接入 GitHub OAuth，入口是 <https://zhutianying.com/admin/>。首次启用需要按 [CMS_SETUP.md](CMS_SETUP.md) 创建 GitHub OAuth App 并在 Vercel 设置三个环境变量；凭据不存放在仓库中。
 
-现在最简单可靠的方式是 Markdown + GitHub：本地使用 VS Code、Obsidian 或 GitHub 网页编辑文章，提交后自动发布。如果你明确需要浏览器里的可视化编辑器，下一步可以另行接入 Decap CMS（GitHub OAuth）或设置私有写作后台；这需要额外配置鉴权，不建议在未配置前暴露 `/admin`。
+`hexo-admin` 仍是一个只适合**本地**使用的 Hexo 编辑界面，不是线上后台。线上后台发布文章时会直接提交 GitHub 的 `main` 分支，并自动触发 Vercel 部署。

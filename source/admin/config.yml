@@ -1,0 +1,36 @@
+backend:
+  name: github
+  repo: zhutianying/zhuzhu-s-blog
+  branch: main
+  base_url: https://zhutianying.com
+  auth_endpoint: api/auth
+
+site_url: https://zhutianying.com
+display_url: https://zhutianying.com
+locale: zh_Hans
+
+media_folder: source/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: posts
+    label: 文章
+    label_singular: 文章
+    folder: source/_posts
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    summary: '{{title}} — {{date}}'
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - label: 发布日期
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD HH:mm:ss
+        date_format: YYYY-MM-DD
+        time_format: HH:mm:ss
+      - { label: 分类, name: categories, widget: list, required: false }
+      - { label: 标签, name: tags, widget: list, required: false }
+      - { label: 摘要, name: description, widget: string, required: false }
+      - { label: 正文, name: body, widget: markdown }
