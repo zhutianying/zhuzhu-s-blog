@@ -5,7 +5,7 @@ layout: layout
 <div class="post-preview-container" style="min-height: <%- config.per_page * 72 %>px">
     <% page.posts.each(function(post){ %>
     <div class="post-preview">
-        <div class="post-time"><%= post.date.format(config.date_format) %></div>
+        <div class="post-time"><%= post_date(post.date) %></div>
         <div class="post-info">
             <a href="<%- full_url_for(post.path) %>">
                 <h3>

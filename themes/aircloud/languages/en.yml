@@ -2,9 +2,6 @@ nav:
   home: HOME
   tags: TAGS
   archives: ARCHIVES
-  about: ABOUT
-  collect: COLLECT
-  search: SEARCH
 #
 #post:
 #  postTime: 发布于
@@ -15,6 +12,3 @@ post:
   tags: Tags
   visit: Visit
   donate: donate
-
-search:
-  search: search

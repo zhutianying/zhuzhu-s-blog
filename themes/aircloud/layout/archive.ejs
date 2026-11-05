@@ -28,7 +28,7 @@ site.posts.sort('date').reverse().forEach(function(post){
         <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
         </li> -->
         <li >
-            <span><%= post.date.format('MM-DD') %></span>
+            <span><%= post.date.tz(config.timezone || 'UTC').format('MM-DD') %></span>
             <i class="fa fa-angle-double-right" aria-hidden="true"></i>
             <a href="<%- config.root %><%- post.path %>">
                         <span>

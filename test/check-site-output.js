@@ -4,7 +4,7 @@ const { resolve } = require('node:path');
 
 const publicDirectory = resolve(__dirname, '../public');
 const read = (path) => readFileSync(resolve(publicDirectory, path), 'utf8');
-const latestTitle = '2026年11月05日早间全球资讯简报';
+const latestTitle = '早间新闻-2026年11月05日';
 
 const home = read('index.html');
 assert.match(home, new RegExp(latestTitle));
@@ -27,6 +27,9 @@ assert.match(home, /京ICP备2023003608号-1/);
 assert.doesNotMatch(home, /Created By/);
 assert.match(home, /<strong>股市。<\/strong> 11 月 4 日/);
 assert.doesNotMatch(home, /\*\*/);
+assert.match(home, /发布于：<span>2026-11-05 06:30:00<\/span>/);
+assert.match(home, /资讯截点：北京时间 11 月 5 日 06:30/);
+assert.equal(existsSync(resolve(publicDirectory, '2026/11/05/2026-11-05-早间全球资讯简报/index.html')), true, '早间新闻链接应保持稳定');
 
 const postsDirectory = resolve(__dirname, '../source/_posts');
 for (const file of readdirSync(postsDirectory).filter((name) => name.endsWith('.md'))) {
