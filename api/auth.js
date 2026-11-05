@@ -5,15 +5,17 @@ const VERIFIER_COOKIE = 'decap_oauth_verifier';
 const COOKIE_PATH = '/api';
 const MAX_AGE_SECONDS = 10 * 60;
 
-function appOrigin(req) {
+function appOrigin() {
   const configuredOrigin = process.env.CMS_SITE_URL;
-  if (configuredOrigin) {
-    return configuredOrigin.replace(/\/$/, '');
+  if (!configuredOrigin) {
+    throw new Error('CMS_SITE_URL must be configured.');
   }
 
-  const host = req.headers.host;
-  if (!host) throw new Error('Missing request host. Set CMS_SITE_URL in Vercel.');
-  return `https://${host}`;
+  const origin = new URL(configuredOrigin);
+  if (origin.pathname !== '/' || origin.search || origin.hash) {
+    throw new Error('CMS_SITE_URL must contain only the site origin.');
+  }
+  return origin.origin;
 }
 
 function base64Url(buffer) {
@@ -34,7 +36,7 @@ module.exports = function auth(req, res) {
   if (!clientId) return res.status(500).send('GitHub OAuth is not configured.');
 
   try {
-    const origin = appOrigin(req);
+    const origin = appOrigin();
     const state = base64Url(randomBytes(32));
     const verifier = base64Url(randomBytes(48));
     const challenge = createHash('sha256').update(verifier).digest('base64url');

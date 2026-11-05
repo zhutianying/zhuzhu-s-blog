@@ -53,11 +53,10 @@ source/_posts/我的文章/cover.png
 在推送前运行：
 
 ```bash
-npm run clean
-npm run build
+npm run check
 ```
 
-若构建成功，`public/` 中会生成静态站点。不要用 `npm audit fix --force` 批量升级旧依赖；升级 Hexo 或主题前，应在单独分支验证页面样式和文章链接。
+该命令会先验证 OAuth 配置逻辑，再生成静态站点到 `public/`。不要用 `npm audit fix --force` 批量升级旧依赖；升级 Hexo 或主题前，应在单独分支验证页面样式和文章链接。
 
 ## Vercel 设置
 
@@ -65,6 +64,6 @@ npm run build
 
 ## 关于后台写作
 
-线上后台已使用 Decap CMS 接入 GitHub OAuth，入口是 <https://zhutianying.com/admin/>。首次启用需要按 [CMS_SETUP.md](CMS_SETUP.md) 创建 GitHub OAuth App 并在 Vercel 设置三个环境变量；凭据不存放在仓库中。
+线上后台已使用 Decap CMS 接入 GitHub OAuth，入口是 <https://zhutianying.com/admin/>。首次启用需要按 [CMS_SETUP.md](CMS_SETUP.md) 创建 GitHub OAuth App 并在 Vercel 设置三个环境变量；其中 `CMS_SITE_URL` 必须是纯站点源地址（例如 `https://zhutianying.com`），不能包含路径、查询参数或片段。凭据不存放在仓库中。
 
 `hexo-admin` 仍是一个只适合**本地**使用的 Hexo 编辑界面，不是线上后台。线上后台发布文章时会直接提交 GitHub 的 `main` 分支，并自动触发 Vercel 部署。

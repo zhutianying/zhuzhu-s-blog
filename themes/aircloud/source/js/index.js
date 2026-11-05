@@ -9,9 +9,11 @@ window.onresize = () => {
     // when window resize , we show remove some class that me be added
     // often for debug
     if(window.document.documentElement.clientWidth > 680){
-        let aboutContent = document.getElementById('nav-content')
-        aboutContent.classList.remove('hide-block')
-        aboutContent.classList.remove('show-block');
+        const aboutContent = document.getElementById('nav-content')
+        if (aboutContent) {
+            aboutContent.classList.remove('hide-block')
+            aboutContent.classList.remove('show-block');
+        }
     }
     // if(window.isPost){
         // reLayout()
@@ -24,13 +26,17 @@ window.onresize = () => {
 /*****************************************************************************/
 const navToggle = document.getElementById('site-nav-toggle');
 navToggle.addEventListener('click', () => {
-    let aboutContent = document.getElementById('nav-content')
+    const aboutContent = document.getElementById('nav-content')
+    if (!aboutContent) return;
+
     if (!aboutContent.classList.contains('show-block')) {
         aboutContent.classList.add('show-block');
         aboutContent.classList.remove('hide-block')
+        navToggle.setAttribute('aria-expanded', 'true');
     } else {
         aboutContent.classList.add('hide-block')
         aboutContent.classList.remove('show-block');
+        navToggle.setAttribute('aria-expanded', 'false');
     }
 })
 
@@ -46,14 +52,17 @@ const escSearch = document.getElementById('esc-search')
 const bgSearch = document.getElementById('search-bg')
 const beginSearch = document.getElementById('begin-search')
 
-searchField.addEventListener('mousewheel',(e) => {
+searchField.addEventListener('wheel',(e) => {
     // e.preventDefault()
     e.stopPropagation()
     return false
 }, false)
 
-var searchJson;
-var caseSensitive = false
+let searchJson;
+let searchLoading;
+const caseSensitive = false;
+const searchWindowSize = 100;
+const maximumSnippetsPerResult = 3;
 
 searchButton.addEventListener('click', () => {
     search()
@@ -68,11 +77,12 @@ bgSearch.addEventListener('click',() => {
 })
 
 beginSearch.addEventListener('click',() => {
-    let keyword = searchInput.value;
-    if(keyword){
-        searchFromKeyWord(keyword)
-    }
+    searchFromInput()
 })
+
+searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') searchFromInput();
+});
 
 function toggleSeachField(){
     if (!searchField.classList.contains('show-flex-fade')) {
@@ -89,137 +99,157 @@ function showSearchField() {
 }
 
 function hideSearchField(){
-    window.onkeydown = null;
     searchField.classList.add('hide-flex-fade');
     searchField.classList.remove('show-flex-fade');
 }
 
-function searchFromKeyWord(keyword = ""){
-    let result = [];
+function isSearchVisible() {
+    return searchField.classList.contains('show-flex-fade');
+}
 
-    let sildeWindowSize = 100;
+function clearSearchResults() {
+    searchResultContainer.replaceChildren();
+}
 
-    let handleKeyword = keyword
+function showSearchMessage(message) {
+    clearSearchResults();
+    const result = document.createElement('div');
+    result.className = 'no-search-result';
+    result.textContent = message;
+    searchResultContainer.appendChild(result);
+}
 
-    if(!caseSensitive){
-        handleKeyword = keyword.toLowerCase()
-    }
-    if(!searchJson) return -1;
-    else {
-        searchJson.forEach((item) => {
+function appendHighlightedText(container, text, keyword) {
+    const comparisonText = caseSensitive ? text : text.toLowerCase();
+    const comparisonKeyword = caseSensitive ? keyword : keyword.toLowerCase();
+    let cursor = 0;
+    let matchStart = comparisonText.indexOf(comparisonKeyword, cursor);
 
-            if(!item.title || !item.content) return 0; // break
-
-            let title = item.title
-            let content = item.content.trim().replace(/<[^>]+>/g,"").replace(/[`#\n]/g,"");
-
-            let lowerTitle = title,lowerContent = content;
-
-            if(!caseSensitive){
-                lowerTitle = title.toLowerCase();
-                lowerContent = content.toLowerCase();
-            }
-
-
-            if(lowerTitle.indexOf(handleKeyword) !== -1 || lowerContent.indexOf(handleKeyword) !== -1){
-                let resultItem = {}
-                resultItem.title = title.replace(keyword, "<span class='red'>" + keyword + '</span>');
-                resultItem.url = item.url;
-
-                resultItem.content = [];
-
-                let lastend = 0
-
-                while(lowerContent.indexOf(handleKeyword) !== -1){
-                    let begin = lowerContent.indexOf(handleKeyword) - sildeWindowSize / 2 < 0 ? 0 : lowerContent.indexOf(handleKeyword) - sildeWindowSize / 2
-                    let end = begin + sildeWindowSize;
-                    let reg = caseSensitive ?  new RegExp('('+keyword+')','g') :  new RegExp('('+keyword+')','ig')
-                    resultItem.content.push("..." + content.slice(lastend + begin, lastend + end).replace(reg, "<span class='red'>$1</span>") + "...")
-                    lowerContent = lowerContent.slice(end, lowerContent.length)
-                    lastend += end
-                }
-                // resultItem.title = title.replace(keyword, "<span class='red'>" + keyword + '</span>');
-                result.push(resultItem)
-            }
-        })
+    while (matchStart !== -1) {
+        container.append(document.createTextNode(text.slice(cursor, matchStart)));
+        const highlight = document.createElement('span');
+        highlight.className = 'red';
+        highlight.textContent = text.slice(matchStart, matchStart + keyword.length);
+        container.append(highlight);
+        cursor = matchStart + keyword.length;
+        matchStart = comparisonText.indexOf(comparisonKeyword, cursor);
     }
 
-    if(!result.length){
-        searchResultContainer.innerHTML = `
-            <div class="no-search-result">No Result</div>
-        `
+    container.append(document.createTextNode(text.slice(cursor)));
+}
+
+function createSnippet(content, matchStart, keyword) {
+    const start = Math.max(0, matchStart - searchWindowSize / 2);
+    const end = Math.min(content.length, start + searchWindowSize);
+    const snippet = document.createDocumentFragment();
+    if (start > 0) snippet.append(document.createTextNode('…'));
+    appendHighlightedText(snippet, content.slice(start, end), keyword);
+    if (end < content.length) snippet.append(document.createTextNode('…'));
+    return snippet;
+}
+
+function searchFromKeyWord(keyword = "") {
+    const normalizedKeyword = caseSensitive ? keyword : keyword.toLowerCase();
+    const results = [];
+
+    searchJson.forEach((item) => {
+        if (!item.title || !item.content) return;
+
+        const title = String(item.title);
+        const content = String(item.content).trim().replace(/<[^>]+>/g, '').replace(/[`#\n]/g, '');
+        const searchableTitle = caseSensitive ? title : title.toLowerCase();
+        const searchableContent = caseSensitive ? content : content.toLowerCase();
+        const snippets = [];
+        let matchStart = searchableContent.indexOf(normalizedKeyword);
+
+        while (matchStart !== -1 && snippets.length < maximumSnippetsPerResult) {
+            snippets.push(matchStart);
+            matchStart = searchableContent.indexOf(normalizedKeyword, matchStart + normalizedKeyword.length);
+        }
+
+        if (searchableTitle.includes(normalizedKeyword) || snippets.length) {
+            results.push({ title, content, url: item.url, snippets });
+        }
+    });
+
+    if (!results.length) {
+        showSearchMessage('没有找到匹配的文章。');
         return;
     }
 
-    let searchFragment = document.createElement('ul')
+    const searchFragment = document.createElement('ul');
+    results.forEach((item) => {
+        const searchItem = document.createElement('li');
+        const searchTitle = document.createElement('a');
+        searchTitle.href = item.url;
+        appendHighlightedText(searchTitle, item.title, keyword);
+        searchItem.appendChild(searchTitle);
 
-    for(let item of result){
-        let searchItem = document.createElement('li');
-        let searchTitle = document.createElement('a');
-        searchTitle.href = item.url
-        searchTitle.innerHTML = item.title;
-        searchItem.appendChild(searchTitle)
-        if(item.content.length) {
-            let searchContentLiContainer = document.createElement('ul')
-            for (let citem of item.content) {
-                let searchContentFragment = document.createElement('li')
-                searchContentFragment.innerHTML = citem;
-                searchContentLiContainer.appendChild(searchContentFragment)
-            }
-            searchItem.appendChild(searchContentLiContainer)
+        if (item.snippets.length) {
+            const snippets = document.createElement('ul');
+            item.snippets.forEach((matchStart) => {
+                const snippet = document.createElement('li');
+                snippet.append(createSnippet(item.content, matchStart, keyword));
+                snippets.appendChild(snippet);
+            });
+            searchItem.appendChild(snippets);
         }
-        searchFragment.appendChild(searchItem)
-    }
-    while(searchResultContainer.firstChild){
-        searchResultContainer.removeChild(searchResultContainer.firstChild)
-    }
-    searchResultContainer.appendChild(searchFragment)
+
+        searchFragment.appendChild(searchItem);
+    });
+
+    clearSearchResults();
+    searchResultContainer.appendChild(searchFragment);
 }
 
-function search(){
+async function loadSearchIndex() {
+    if (searchJson) return searchJson;
+    if (searchLoading) return searchLoading;
 
-    toggleSeachField()
-
-    window.onkeydown = (e) => {
-        if (e.which === 27) {
-            /** 这里编写当ESC按下时的处理逻辑！ */
-            toggleSeachField()
-        } else if(e.which === 13){
-            // 回车按下
-            let keyword = searchInput.value;
-            if(keyword){
-                searchFromKeyWord(keyword)
-            }
-        }
+    let searchPath = window.hexo_search_path || 'search.json';
+    if (!/json$/i.test(searchPath)) {
+        throw new Error('本站搜索仅支持 JSON 索引。');
     }
 
-
-    if(!searchJson){
-        let isXml;
-        let search_path = window.hexo_search_path;
-        if (search_path.length === 0) {
-            search_path = "search.json";
-        } else if (/json$/i.test(search_path)) {
-            isXml = false;
-        }
-        let path = window.hexo_root+ search_path;
-        $.ajax({
-            url: path,
-            dataType: isXml ? "xml" : "json",
-            async: true,
-            success: function (res) {
-                searchJson = isXml ? $("entry", res).map(function() {
-                    return {
-                        title: $("title", this).text(),
-                        content: $("content",this).text(),
-                        url: $("url" , this).text()
-                    };
-                }).get() : res;
-            }
+    searchLoading = fetch(window.hexo_root + searchPath)
+        .then((response) => {
+            if (!response.ok) throw new Error(`搜索索引加载失败（${response.status}）。`);
+            return response.json();
+        })
+        .then((data) => {
+            if (!Array.isArray(data)) throw new Error('搜索索引格式无效。');
+            searchJson = data;
+            return searchJson;
+        })
+        .finally(() => {
+            searchLoading = undefined;
         });
-    }
 
+    return searchLoading;
 }
+
+async function searchFromInput() {
+    const keyword = searchInput.value.trim();
+    if (!keyword) return;
+
+    try {
+        if (!searchJson) showSearchMessage('正在加载搜索索引…');
+        await loadSearchIndex();
+        searchFromKeyWord(keyword);
+    } catch (error) {
+        showSearchMessage(error.message || '搜索暂时不可用。');
+    }
+}
+
+function search() {
+    toggleSeachField();
+    if (!isSearchVisible()) return;
+    loadSearchIndex().catch((error) => showSearchMessage(error.message || '搜索暂时不可用。'));
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && isSearchVisible()) hideSearchField();
+});
 
 // directory function in post pages
 /*****************************************************************************/

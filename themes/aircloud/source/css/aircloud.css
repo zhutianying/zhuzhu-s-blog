@@ -167,7 +167,7 @@ body {
 .site-nav-toggle {
   display: none;
 }
-.site-nav-toggle button {
+.site-nav-toggle {
   outline: none;
   margin-top: 2px;
   padding: 9px 10px;
@@ -175,14 +175,14 @@ body {
   border: none;
   user-select: none;
 }
-.site-nav-toggle button .btn-bar {
+.site-nav-toggle .btn-bar {
   display: block;
   width: 22px;
   height: 2px;
   background: #666666;
   border-radius: 1px;
 }
-.site-nav-toggle button .btn-bar + .btn-bar {
+.site-nav-toggle .btn-bar + .btn-bar {
   margin-top: 4px;
 }
 .search-field {
@@ -805,12 +805,6 @@ body {
 .post-content figcaption {
   text-align: center;
 }
-#comment-container {
-  text-indent: 0;
-}
-#lv-container {
-  text-indent: 0;
-}
 .post-content li p {
   display: inline;
 }
@@ -1328,7 +1322,4 @@ pre .javascript .function {
   .toc-article {
     display: none;
   }
-}
-.gitment-comment p {
-  text-indent: 0;
 }

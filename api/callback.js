@@ -4,10 +4,17 @@ const STATE_COOKIE = 'decap_oauth_state';
 const VERIFIER_COOKIE = 'decap_oauth_verifier';
 const COOKIE_PATH = '/api';
 
-function appOrigin(req) {
+function appOrigin() {
   const configuredOrigin = process.env.CMS_SITE_URL;
-  if (configuredOrigin) return configuredOrigin.replace(/\/$/, '');
-  return `https://${req.headers.host}`;
+  if (!configuredOrigin) {
+    throw new Error('CMS_SITE_URL must be configured.');
+  }
+
+  const origin = new URL(configuredOrigin);
+  if (origin.pathname !== '/' || origin.search || origin.hash) {
+    throw new Error('CMS_SITE_URL must contain only the site origin.');
+  }
+  return origin.origin;
 }
 
 function clearCookie(name) {
@@ -57,7 +64,12 @@ module.exports = async function callback(req, res) {
     return res.status(405).send('Method Not Allowed');
   }
 
-  const origin = appOrigin(req);
+  let origin;
+  try {
+    origin = appOrigin();
+  } catch {
+    return res.status(500).send('CMS site URL is not configured correctly.');
+  }
   const clearCookies = [clearCookie(STATE_COOKIE), clearCookie(VERIFIER_COOKIE)];
   res.setHeader('Set-Cookie', clearCookies);
 
