@@ -1,1 +1,70 @@
-zhuzhu's blog
+# zhuzhu's blog
+
+[zhutianying.com](https://zhutianying.com/) 的源码。它是一个 Hexo 静态站点：文章和图片存放在 GitHub，推送到 `main` 后由 Vercel 自动构建并发布，因此不需要云服务器。
+
+## 日常写作
+
+Node.js 22 是此项目的唯一受支持版本。安装依赖后，用下面的流程写作：
+
+```bash
+npm ci
+npm run new -- "我的文章标题"
+npm run dev
+```
+
+新建文章在 `source/_posts/`；本地预览地址为 <http://localhost:4000>。文章写好后，提交并推送到 `main`：
+
+```bash
+git add source/_posts
+git commit -m "post: 我的文章标题"
+git push origin main
+```
+
+Vercel 会运行 `npm run build` 并发布 `public/` 目录。`public/` 是生成物，不应手动修改或提交。
+
+## 文章格式
+
+新文章会自动使用 `scaffolds/post.md` 模板。至少填写标题、分类和标签：
+
+```md
+---
+title: 一个可复用的工作方法
+date: 2026-11-05 20:00:00
+categories:
+  - AI 与开发
+tags:
+  - Hexo
+  - 工作流
+description: 用一句话说明文章要解决的问题。
+---
+```
+
+图片请放进和文章同名的资源目录，例如：
+
+```text
+source/_posts/我的文章.md
+source/_posts/我的文章/cover.png
+```
+
+再用 `![封面](cover.png)` 引用。项目已开启 Hexo 的文章资源目录功能。
+
+## 本地检查
+
+在推送前运行：
+
+```bash
+npm run clean
+npm run build
+```
+
+若构建成功，`public/` 中会生成静态站点。不要用 `npm audit fix --force` 批量升级旧依赖；升级 Hexo 或主题前，应在单独分支验证页面样式和文章链接。
+
+## Vercel 设置
+
+在 Vercel Project Settings → Build and Deployment 中将 Node.js Version 设为 **22.x**。仓库中的 `engines.node`、`.nvmrc` 与 `vercel.json` 也会把本地和线上构建统一到同一套约定。
+
+## 关于后台写作
+
+`hexo-admin` 是一个只适合**本地**使用的 Hexo 编辑界面，通常可在本地启动后访问 `/admin`。它不是能直接部署在 Vercel 上的安全内容后台：线上静态部署没有持久写入能力，也不应公开 GitHub 写入权限。
+
+现在最简单可靠的方式是 Markdown + GitHub：本地使用 VS Code、Obsidian 或 GitHub 网页编辑文章，提交后自动发布。如果你明确需要浏览器里的可视化编辑器，下一步可以另行接入 Decap CMS（GitHub OAuth）或设置私有写作后台；这需要额外配置鉴权，不建议在未配置前暴露 `/admin`。

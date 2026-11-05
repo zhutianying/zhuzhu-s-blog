@@ -1,6 +1,14 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags:
+categories:
+tags: []
+description:
 ---
+
+## 背景
+
+## 过程
+
+## 结论
 

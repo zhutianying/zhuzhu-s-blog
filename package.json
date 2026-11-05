@@ -1,7 +1,17 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "zhuzhu-s-blog",
+  "version": "1.0.0",
+  "description": "zhutianying.com 的 Hexo 静态博客",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "clean": "hexo clean",
+    "build": "hexo generate",
+    "dev": "hexo server",
+    "new": "hexo new"
+  },
   "hexo": {
     "version": "5.4.2"
   },
