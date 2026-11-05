@@ -8,14 +8,16 @@
   },
   "scripts": {
     "clean": "hexo clean",
-    "build": "hexo generate",
-    "dev": "hexo server",
+    "prepare:admin": "node scripts/prepare-admin.js",
+    "build": "npm run prepare:admin && hexo generate",
+    "dev": "npm run prepare:admin && hexo server",
     "new": "hexo new"
   },
   "hexo": {
     "version": "5.4.2"
   },
   "dependencies": {
+    "decap-cms": "^3.8.1",
     "ejs": "^2.5.5",
     "hexo": "^5.4.2",
     "hexo-generator-archive": "^1.0.0",
