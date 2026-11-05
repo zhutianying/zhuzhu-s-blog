@@ -12,38 +12,32 @@
         <ul>
             <li <% if(is_home()){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= url_for(config.home_dir || '/') %>">
-                    <i class="iconfont icon-shouye1"></i>
                     <span><%= __('nav.home') %></span>
                 </a>
             </li>
             <li <% if(is_current('tags')){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= url_for(config.tag_dir) %>">
-                    <i class="iconfont icon-biaoqian1"></i>
                     <span><%= __('nav.tags') %></span>
                 </a>
             </li>
             <li <% if(is_current('archive')){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= url_for(config.archive_dir) %>">
-                    <i class="iconfont icon-guidang2"></i>
                     <span><%= __('nav.archives') %></span>
                 </a>
             </li>
             <li <% if(is_current('collect')){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= config.root %><%- 'collect/' %>">
-                    <i class="iconfont icon-shoucang1"></i>
                     <span><%= __('nav.collect') %></span>
                 </a>
             </li>
             <li <% if(is_current('about')){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= config.root %><%- 'about/' %>">
-                    <i class="iconfont icon-guanyu2"></i>
                     <span><%= __('nav.about') %></span>
                 </a>
             </li>
             <%if(config.search && config.search.path){%>
             <li>
                 <a id="search" href="#search" aria-label="搜索文章" role="button">
-                    <i class="iconfont icon-sousuo1"></i>
                     <span><%= __('nav.search') %></span>
                 </a>
             </li>
@@ -63,7 +57,7 @@
     <div class="search-bg" id="search-bg"></div>
     <div class="search-container">
         <div class="search-input">
-            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <span id="esc-search">返回</span>
             <input id="search-input" type="search" aria-label="搜索关键词" autocomplete="off" />
             <span id="begin-search"><%= __('search.search') %></span>
         </div>
