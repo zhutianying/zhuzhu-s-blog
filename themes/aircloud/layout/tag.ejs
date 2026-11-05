@@ -1,0 +1,17 @@
+---
+layout: layout
+---
+
+<div class="tag-results">
+    <h1><%= page.tag %></h1>
+    <div class="post-preview-container" style="min-height: <%- page.posts.length * 72 %>px">
+        <% page.posts.each(function(post) { %>
+        <div class="post-preview">
+            <div class="post-time"><%= post.date.format(config.date_format) %></div>
+            <div class="post-info">
+                <a href="<%= url_for(post.path) %>"><h3><%- (post.title || 'Untitled').replace(/[<>&"]/g, function(c) { return {'<':'&lt;', '>':'&gt;', '&':'&amp;', '"':'&quot;'}[c]; }) %></h3></a>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>

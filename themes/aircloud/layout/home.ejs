@@ -1,0 +1,22 @@
+---
+layout: layout
+---
+
+<% const post = page.post; %>
+<div class="post-container">
+    <div class="post-title"><%- post.title.replace(/[<>&"]/g, function(c) { return {'<':'&lt;', '>':'&gt;', '&':'&amp;', '"':'&quot;'}[c]; }) %></div>
+    <div class="post-meta">
+        <span class="attr"><%= __('post.postTime') %>：<span><%= post.date.format(config.date_format) %> <%= post.date.format(config.time_format) %></span></span>
+        <% if (post.tags.length) { %>
+        <span class="attr"><%= __('post.tags') %>：/
+            <% post.tags.forEach(function(tag) { %>
+            <a class="tag" href="<%= url_for(tag.path) %>" title="<%= tag.name %>"><%= tag.name %></a><span>/</span>
+            <% }) %>
+        </span>
+        <% } %>
+    </div>
+    <div class="post-content <% if(config.post_style && !config.post_style.indent) { %>no-indent<% } %>">
+        <%- post.content %>
+        <% if(config.donate) { %><%- partial('_partial/donate', null, {cache: false}) %><% } %>
+    </div>
+</div>

@@ -1207,29 +1207,23 @@ pre .javascript .function {
   color: #333333;
 }
 .list-inline.text-center {
-  color: #444444;
-  font-size: 20px;
+  color: #979797;
+  font-size: 14px;
   padding-left: 0;
   margin-bottom: 0;
 }
 .list-inline.text-center li {
   display: inline-block;
-  margin: 0 2px;
-  background-color: #979797;
-  height: 24px;
-  width: 24px;
-  border-radius: 12px;
+  margin: 0 6px;
   text-align: center;
 }
 .list-inline.text-center li a {
   text-decoration: none;
+  color: #979797;
+  font-weight: 300;
 }
-.list-inline.text-center li a span i {
-  line-height: 20px;
-  color: white;
-}
-.list-inline.text-center li:hover {
-  background-color: #333333;
+.list-inline.text-center li:hover a {
+  color: #333333;
 }
 @media screen and (max-width: 680px) {
   .footer {

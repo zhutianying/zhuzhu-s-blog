@@ -52,6 +52,7 @@ const escSearch = document.getElementById('esc-search')
 const bgSearch = document.getElementById('search-bg')
 const beginSearch = document.getElementById('begin-search')
 
+if (searchButton && searchField && searchInput && searchResultContainer && escSearch && bgSearch && beginSearch) {
 searchField.addEventListener('wheel',(e) => {
     // e.preventDefault()
     e.stopPropagation()
@@ -257,6 +258,7 @@ function search() {
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && isSearchVisible()) hideSearchField();
 });
+}
 
 // directory function in post pages
 /*****************************************************************************/

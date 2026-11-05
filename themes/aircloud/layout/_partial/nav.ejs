@@ -25,23 +25,6 @@
                     <span><%= __('nav.archives') %></span>
                 </a>
             </li>
-            <li <% if(is_current('collect')){ %> <%- "class=active" %> <% } %>>
-                <a href="<%= config.root %><%- 'collect/' %>">
-                    <span><%= __('nav.collect') %></span>
-                </a>
-            </li>
-            <li <% if(is_current('about')){ %> <%- "class=active" %> <% } %>>
-                <a href="<%= config.root %><%- 'about/' %>">
-                    <span><%= __('nav.about') %></span>
-                </a>
-            </li>
-            <%if(config.search && config.search.path){%>
-            <li>
-                <a id="search" href="#search" aria-label="搜索文章" role="button">
-                    <span><%= __('nav.search') %></span>
-                </a>
-            </li>
-            <% } %>
         </ul>
     </div>
     <%
@@ -50,19 +33,4 @@
     %>
         <%- partial('./toc', {item: page, index: false}) %>
     <% } %>
-</div>
-
-
-<div class="search-field" id="search-field">
-    <div class="search-bg" id="search-bg"></div>
-    <div class="search-container">
-        <div class="search-input">
-            <span id="esc-search">返回</span>
-            <input id="search-input" type="search" aria-label="搜索关键词" autocomplete="off" />
-            <span id="begin-search"><%= __('search.search') %></span>
-        </div>
-        <div class="search-result-container" id="search-result-container" role="status" aria-live="polite">
-
-        </div>
-    </div>
 </div>
