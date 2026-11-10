@@ -30,7 +30,6 @@ collections:
         format: YYYY-MM-DD HH:mm:ss
         date_format: YYYY-MM-DD
         time_format: HH:mm:ss
-      - { label: 分类, name: categories, widget: list }
       - { label: 标签, name: tags, widget: string, hint: 每篇文章只填写一个标签, required: true }
-      - { label: 摘要, name: description, widget: string }
+      - { name: description, widget: hidden, required: false }
       - { label: 正文, name: body, widget: markdown }
