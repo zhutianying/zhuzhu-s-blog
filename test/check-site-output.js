@@ -52,6 +52,9 @@ const cmsConfig = readFileSync(resolve(__dirname, '../source/admin/config.yml'),
 assert.doesNotMatch(cmsConfig, /name: categories/, '后台不应显示分类字段');
 assert.match(cmsConfig, /name: description, widget: hidden/, '后台应隐藏摘要字段');
 
+const admin = read('admin/index.html');
+assert.match(admin, /<base href="\/admin\/">/, '后台必须固定从 /admin/ 加载相对资源');
+
 assert.equal(existsSync(resolve(publicDirectory, 'search.json')), false, '不应生成搜索索引');
 assert.equal(existsSync(resolve(publicDirectory, 'archive/2024/index.html')), false, '不应生成旧归档页');
 assert.equal(existsSync(resolve(publicDirectory, 'about/index.html')), false, '不应生成关于页面');
