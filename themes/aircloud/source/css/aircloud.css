@@ -8,6 +8,9 @@ html {
   padding: 0;
 }
 body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   margin-left: calc(100vw - 100%) !important;
   -webkit-text-size-adjust: none;
 }
@@ -708,6 +711,7 @@ body {
   display: none;
 }
 .index-container {
+  flex: 1 0 auto;
   justify-content: center;
   height: max-content;
   position: relative;
@@ -1051,6 +1055,7 @@ pre .javascript .function {
   color: #8959a8;
 }
 .footer {
+  flex-shrink: 0;
   width: 100%;
   align-items: center;
   display: flex;
