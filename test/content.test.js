@@ -4,7 +4,7 @@ const { join } = require('node:path');
 const test = require('node:test');
 
 const postsDirectory = join(__dirname, '../source/_posts');
-const requiredFields = ['title', 'date', 'categories', 'tags', 'description'];
+const requiredFields = ['title', 'date', 'tags', 'description'];
 
 function frontMatter(source) {
   const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---/);
@@ -20,9 +20,11 @@ test('all posts provide the required SEO metadata', () => {
   assert.ok(postFiles.length > 0, '至少应有一篇文章');
 
   postFiles.forEach((file) => {
-    const fields = frontMatter(readFileSync(join(postsDirectory, file), 'utf8'));
+    const source = readFileSync(join(postsDirectory, file), 'utf8');
+    const fields = frontMatter(source);
     requiredFields.forEach((field) => {
       assert.ok(fields.has(field), `${file} 缺少 ${field}`);
     });
+    assert.match(source, /^tags: [^\n\[\]-]+$/m, `${file} 的 tags 必须是单个标签`);
   });
 });
