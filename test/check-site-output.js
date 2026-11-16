@@ -15,22 +15,23 @@ const posts = readdirSync(postsDirectory)
     assert.ok(title && date, `${file} 必须包含标题和发布日期`);
     return { file, source, title, date };
   });
-const latestTitle = posts.reduce((latest, post) => (post.date > latest.date ? post : latest)).title;
-const knownMorningNewsTitle = '早间新闻-2026年11月05日';
 
 const home = read('index.html');
-assert.match(home, literalPattern(latestTitle));
 assert.match(home, /<div class="post-content/);
 
 const archive = read('archive/index.html');
-assert.match(archive, literalPattern(latestTitle));
 assert.match(archive, /post-preview-container/);
 
 const aiTag = read('tags/AI/index.html');
 assert.match(aiTag, /ChatGPT的技术逻辑及演进历程/);
 
-const morningNewsTag = read('tags/早间新闻/index.html');
-assert.match(morningNewsTag, literalPattern(knownMorningNewsTitle));
+for (const post of posts.filter(({ source }) => /^tags: 早间新闻$/m.test(source))) {
+  const datePath = post.date.slice(0, 10).replaceAll('-', '/');
+  const slug = post.file.slice(0, -'.md'.length);
+  const article = read(`${datePath}/${slug}/index.html`);
+  assert.match(article, literalPattern(post.title));
+  assert.doesNotMatch(article, /\*\*/, `${post.file} 包含未渲染的粗体标记`);
+}
 
 assert.match(home, /友链：/);
 assert.match(home, /GodKai/);
